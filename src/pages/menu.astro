@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our massive, premium multi-cuisine menu at Eat Club. We serve mouthwatering appetizers, artisan pizzas, fresh pastas, healthy salads, and gourmet desserts.">
+    <title>Our Menu | Eat Club - Premium Flavors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Advanced styling for the custom Menu page */
+        .menu-hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%);
+            padding: 7rem 2rem 5rem 2rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .menu-hero h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--dark-color) 30%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .menu-hero p {
+            font-size: 1.3rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Scrolling Category Filter Bar */
+        .category-filters-container {
+            position: sticky;
+            top: 90px; /* offset for header sticky */
+            z-index: 999;
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 1rem;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-filters::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .filter-btn {
+            background: var(--white);
+            color: var(--dark-color);
+            border: 2px solid rgba(0,0,0,0.05);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .filter-btn:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255,107,53,0.1);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.35);
+        }
+
+        /* Items container modification */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 2.5rem;
+            min-height: 400px;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Active Nav Link */
+        nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* responsive filter top */
+        @media (max-width: 768px) {
+            .category-filters-container {
+                top: 0;
+                padding: 0.6rem 0;
+            }
+
+            .menu-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.25rem;
+                min-height: 0;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.4rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        .menu-hero {
+            background: #EFE9DE;
+            border: 0;
+        }
+
+        .menu-hero h2 {
+            background: none;
+            color: var(--dark-color);
+            -webkit-text-fill-color: currentColor;
+        }
+
+        .category-filters-container {
+            background: var(--light-color);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .filter-btn {
+            border-width: 1px;
+            border-radius: 8px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="loading">
+
+    <header>
+        <h1>Welcome to Eat Club</h1>
+        <nav>
+            <ul>
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/menu/" class="active">Menu</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Menu Hero Section -->
+        <section class="menu-hero">
+            <h2>Our Exquisite Menu</h2>
+            <p>Explore a universe of taste carefully designed by our culinary experts. Filter by category to find your perfect flavor.</p>
+        </section>
+
+        <!-- Sticky Interactive Filter Bar -->
+        <div class="category-filters-container">
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">All Flavors</button>
+                <button class="filter-btn" data-filter="appetizers">Appetizers</button>
+                <button class="filter-btn" data-filter="pizza">Pizzas</button>
+                <button class="filter-btn" data-filter="pasta">Pasta</button>
+                <button class="filter-btn" data-filter="asian">Asian</button>
+                <button class="filter-btn" data-filter="mexican">Mexican</button>
+                <button class="filter-btn" data-filter="indian">Indian</button>
+                <button class="filter-btn" data-filter="burgers">Burgers</button>
+                <button class="filter-btn" data-filter="salads">Salads</button>
+                <button class="filter-btn" data-filter="desserts">Desserts</button>
+                <button class="filter-btn" data-filter="beverages">Beverages</button>
+            </div>
+        </div>
+
+        <!-- Filterable Menu Grid -->
+        <section id="filterableMenu">
+            <div class="menu-grid">
+                
+                <!-- Appetizers -->
+                <div class="menu-item animate-grid" data-category="appetizers">
+                    <img src="/assets/image/Mozzarella Sticks.jpg" alt="Mozzarella Sticks">
+                    <div class="menu-item-content">
+                        <h3>Mozzarella Sticks</h3>
+                        <p>Crispy breaded mozzarella cheese served with marinara sauce.</p>
+                        <span class="price">₹699</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="appetizers">
+                    <img src="/assets/image/Buffalo Wings.jpg" alt="Buffalo Wings">
+                    <div class="menu-item-content">
+                        <h3>Buffalo Wings</h3>
+                        <p>Spicy chicken wings tossed in buffalo sauce with celery and ranch.</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="appetizers">
+                    <img src="/assets/image/Garlic Bread.jpg" alt="Garlic Bread">
+                    <div class="menu-item-content">
+                        <h3>Garlic Bread</h3>
+                        <p>Toasted bread with garlic butter, herbs, and parmesan cheese.</p>
+                        <span class="price">₹499</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Pizzas -->
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Margherita Pizza.jpg" alt="Margherita Pizza">
+                    <div class="menu-item-content">
+                        <h3>Margherita Pizza</h3>
+                        <p>Fresh mozzarella, tomato sauce, basil, and olive oil on thin crust.</p>
+                        <span class="price">₹1099</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Pepperoni Pizza.jpg" alt="Pepperoni Pizza">
+                    <div class="menu-item-content">
+                        <h3>Pepperoni Pizza</h3>
+                        <p>Classic pepperoni with mozzarella cheese and marinara sauce.</p>
+                        <span class="price">₹1299</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/BBQ Chicken Pizza.jpg" alt="BBQ Chicken Pizza">
+                    <div class="menu-item-content">
+                        <h3>BBQ Chicken Pizza</h3>
+                        <p>Grilled chicken, BBQ sauce, red onions, and cilantro on pizza crust.</p>
+                        <span class="price">₹1399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Veggie Supreme Pizza.jpg" alt="Veggie Supreme Pizza">
+                    <div class="menu-item-content">
+                        <h3>Veggie Supreme Pizza</h3>
+                        <p>Bell peppers, mushrooms, onions, olives, tomatoes, and cheese.</p>
+                        <span class="price">₹1199</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Meat Lovers Pizza.jpg" alt="Meat Lovers Pizza">
+                    <div class="menu-item-content">
+                        <h3>Meat Lovers Pizza</h3>
+                        <p>Pepperoni, sausage, bacon, ham, and ground beef with extra cheese.</p>
+                        <span class="price">₹1599</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Hawaiian Pizza.jpg" alt="Hawaiian Pizza">
+                    <div class="menu-item-content">
+                        <h3>Hawaiian Pizza</h3>
+                        <p>Ham, pineapple, mozzarella, and tomato sauce on pizza crust.</p>
+                        <span class="price">₹1299</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Buffalo Chicken Pizza.jpg" alt="Buffalo Chicken Pizza">
+                    <div class="menu-item-content">
+                        <h3>Buffalo Chicken Pizza</h3>
+                        <p>Spicy buffalo chicken, blue cheese, red onions, and ranch drizzle.</p>
+                        <span class="price">₹1399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pizza">
+                    <img src="/assets/image/Four Cheese Pizza.jpg" alt="Four Cheese Pizza">
+                    <div class="menu-item-content">
+                        <h3>Four Cheese Pizza</h3>
+                        <p>Mozzarella, cheddar, parmesan, and gorgonzola cheeses.</p>
+                        <span class="price">₹1199</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Pasta -->
+                <div class="menu-item animate-grid" data-category="pasta">
+                    <img src="/assets/image/Spaghetti Carbonara.jpg" alt="Spaghetti Carbonara">
+                    <div class="menu-item-content">
+                        <h3>Spaghetti Carbonara</h3>
+                        <p>Creamy pasta with pancetta, eggs, parmesan, and black pepper.</p>
+                        <span class="price">₹1199</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pasta">
+                    <img src="/assets/image/Classic Lasagna.jpg" alt="Classic Lasagna">
+                    <div class="menu-item-content">
+                        <h3>Classic Lasagna</h3>
+                        <p>Layers of pasta, ground beef, ricotta, mozzarella, and marinara sauce.</p>
+                        <span class="price">₹1399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="pasta">
+                    <img src="/assets/image/Fettuccine Alfredo.jpg" alt="Fettuccine Alfredo">
+                    <div class="menu-item-content">
+                        <h3>Fettuccine Alfredo</h3>
+                        <p>Creamy fettuccine pasta tossed in rich Alfredo sauce with parmesan cheese.</p>
+                        <span class="price">₹1299</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Asian -->
+                <div class="menu-item animate-grid" data-category="asian">
+                    <img src="/assets/image/Chicken Fried Rice.jpg" alt="Chicken Fried Rice">
+                    <div class="menu-item-content">
+                        <h3>Chicken Fried Rice</h3>
+                        <p>Wok-tossed rice with tender chicken, vegetables, and soy sauce.</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="asian">
+                    <img src="/assets/image/Vegetable Spring Rolls.jpg" alt="Vegetable Spring Rolls">
+                    <div class="menu-item-content">
+                        <h3>Vegetable Spring Rolls</h3>
+                        <p>Crispy rolls filled with fresh vegetables and served with sweet chili sauce.</p>
+                        <span class="price">₹599</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="asian">
+                    <img src="/assets/image/Korean BBQ Beef.jpg" alt="Korean BBQ Beef">
+                    <div class="menu-item-content">
+                        <h3>Korean BBQ Beef</h3>
+                        <p>Tender beef marinated in Korean spices, grilled to perfection.</p>
+                        <span class="price">₹1299</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="asian">
+                    <img src="/assets/image/Pad Thai.jpg" alt="Pad Thai">
+                    <div class="menu-item-content">
+                        <h3>Pad Thai</h3>
+                        <p>Stir-fried rice noodles with shrimp, tofu, peanuts, and tamarind sauce.</p>
+                        <span class="price">₹1099</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Mexican -->
+                <div class="menu-item animate-grid" data-category="mexican">
+                    <img src="/assets/image/Chicken Tacos.jpg" alt="Chicken Tacos">
+                    <div class="menu-item-content">
+                        <h3>Chicken Tacos</h3>
+                        <p>Soft tortillas filled with seasoned chicken, salsa, and fresh toppings.</p>
+                        <span class="price">₹799</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="mexican">
+                    <img src="/assets/image/Beef Quesadillas.jpg" alt="Beef Quesadillas">
+                    <div class="menu-item-content">
+                        <h3>Beef Quesadillas</h3>
+                        <p>Grilled tortillas stuffed with beef, cheese, and peppers.</p>
+                        <span class="price">₹949</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="mexican">
+                    <img src="/assets/image/Veggie Burrito.jpg" alt="Veggie Burrito">
+                    <div class="menu-item-content">
+                        <h3>Veggie Burrito</h3>
+                        <p>Large tortilla wrapped with rice, beans, vegetables, and guacamole.</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="mexican">
+                    <img src="/assets/image/Chili Con Carne.jpg" alt="Chili Con Carne">
+                    <div class="menu-item-content">
+                        <h3>Chili Con Carne</h3>
+                        <p>Spicy stew with ground beef, beans, tomatoes, and chili peppers.</p>
+                        <span class="price">₹1099</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Indian -->
+                <div class="menu-item animate-grid" data-category="indian">
+                    <img src="/assets/image/Butter Chicken.jpg" alt="Butter Chicken">
+                    <div class="menu-item-content">
+                        <h3>Butter Chicken</h3>
+                        <p>Creamy, rich curry with tender chicken in a tomato-based sauce.</p>
+                        <span class="price">₹1199</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="indian">
+                    <img src="/assets/image/Paneer Tikka.jpg" alt="Paneer Tikka">
+                    <div class="menu-item-content">
+                        <h3>Paneer Tikka</h3>
+                        <p>Marinated paneer cubes grilled with spices and vegetables.</p>
+                        <span class="price">₹999</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="indian">
+                    <img src="/assets/image/Lamb Biriyani.jpg" alt="Lamb Biriyani">
+                    <div class="menu-item-content">
+                        <h3>Lamb Biriyani</h3>
+                        <p>Aromatic basmati rice with tender lamb, spices, and caramelized onions.</p>
+                        <span class="price">₹1399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="indian">
+                    <img src="/assets/image/Chana Masala.jpg" alt="Chana Masala">
+                    <div class="menu-item-content">
+                        <h3>Chana Masala</h3>
+                        <p>Spicy chickpea curry with tomatoes, onions, and Indian spices.</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Burgers -->
+                <div class="menu-item animate-grid" data-category="burgers">
+                    <img src="/assets/image/Classic Cheeseburger.jpg" alt="Classic Cheeseburger">
+                    <div class="menu-item-content">
+                        <h3>Classic Cheeseburger</h3>
+                        <p>Juicy beef patty with cheese, lettuce, tomato, and special sauce.</p>
+                        <span class="price">₹949</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="burgers">
+                    <img src="/assets/image/Bacon Deluxe Burger.jpg" alt="Bacon Deluxe Burger">
+                    <div class="menu-item-content">
+                        <h3>Bacon Deluxe Burger</h3>
+                        <p>Double patty with crispy bacon, cheddar, and BBQ sauce.</p>
+                        <span class="price">₹1149</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="burgers">
+                    <img src="/assets/image/Mushroom Swiss Burger.jpg" alt="Mushroom Swiss Burger">
+                    <div class="menu-item-content">
+                        <h3>Mushroom Swiss Burger</h3>
+                        <p>Juicy beef patty topped with sautéed mushrooms and Swiss cheese.</p>
+                        <span class="price">₹1099</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="burgers">
+                    <img src="/assets/image/Veggie Burger.jpg" alt="Veggie Burger">
+                    <div class="menu-item-content">
+                        <h3>Veggie Burger</h3>
+                        <p>Plant-based patty with lettuce, tomato, onion, and vegan mayo.</p>
+                        <span class="price">₹899</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="burgers">
+                    <img src="/assets/image/Chicken Burger.jpg" alt="Chicken Burger">
+                    <div class="menu-item-content">
+                        <h3>Chicken Burger</h3>
+                        <p>Crispy chicken breast with lettuce, tomato, and spicy mayo.</p>
+                        <span class="price">₹999</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Salads -->
+                <div class="menu-item animate-grid" data-category="salads">
+                    <img src="/assets/image/Caesar Salad.jpg" alt="Caesar Salad">
+                    <div class="menu-item-content">
+                        <h3>Caesar Salad</h3>
+                        <p>Romaine lettuce, parmesan, croutons, and Caesar dressing.</p>
+                        <span class="price">₹799</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="salads">
+                    <img src="/assets/image/Quinoa Power Bowl.jpg" alt="Quinoa Power Bowl">
+                    <div class="menu-item-content">
+                        <h3>Quinoa Power Bowl</h3>
+                        <p>Quinoa, roasted vegetables, avocado, and tahini dressing.</p>
+                        <span class="price">₹999</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Desserts -->
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Classic Tiramisu.jpg" alt="Classic Tiramisu">
+                    <div class="menu-item-content">
+                        <h3>Classic Tiramisu</h3>
+                        <p>Coffee-soaked ladyfingers layered with mascarpone cream.</p>
+                        <span class="price">₹649</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/New York Cheesecake.jpg" alt="New York Cheesecake">
+                    <div class="menu-item-content">
+                        <h3>New York Cheesecake</h3>
+                        <p>Creamy cheesecake with graham cracker crust and berry topping.</p>
+                        <span class="price">₹549</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Chocolate Brownie.jpg" alt="Chocolate Brownie">
+                    <div class="menu-item-content">
+                        <h3>Chocolate Brownie</h3>
+                        <p>Rich and fudgy chocolate brownie served warm with vanilla ice cream.</p>
+                        <span class="price">₹399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Ice Cream Sundae.jpg" alt="Ice Cream Sundae">
+                    <div class="menu-item-content">
+                        <h3>Ice Cream Sundae</h3>
+                        <p>Vanilla ice cream topped with chocolate sauce, whipped cream, and nuts.</p>
+                        <span class="price">₹499</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Chocolate Cake.jpg" alt="Chocolate Cake">
+                    <div class="menu-item-content">
+                        <h3>Chocolate Cake</h3>
+                        <p>Rich and moist chocolate cake with chocolate frosting.</p>
+                        <span class="price">₹599</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Vanilla Cake.jpg" alt="Vanilla Cake">
+                    <div class="menu-item-content">
+                        <h3>Vanilla Cake</h3>
+                        <p>Classic vanilla cake with vanilla buttercream icing.</p>
+                        <span class="price">₹549</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Red Velvet Cake.jpg" alt="Red Velvet Cake">
+                    <div class="menu-item-content">
+                        <h3>Red Velvet Cake</h3>
+                        <p>Moist red velvet cake with cream cheese frosting.</p>
+                        <span class="price">₹649</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="desserts">
+                    <img src="/assets/image/Lemon Cake.jpg" alt="Lemon Cake">
+                    <div class="menu-item-content">
+                        <h3>Lemon Cake</h3>
+                        <p>Zesty lemon cake with lemon glaze and fresh berries.</p>
+                        <span class="price">₹579</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+                <!-- Beverages -->
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Berry Blast Smoothie.jpg" alt="Smoothie">
+                    <div class="menu-item-content">
+                        <h3>Berry Blast Smoothie</h3>
+                        <p>Mixed berries, banana, yogurt, and honey blended to perfection.</p>
+                        <span class="price">₹449</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Artisan Coffee.jpg" alt="Artisan Coffee">
+                    <div class="menu-item-content">
+                        <h3>Artisan Coffee</h3>
+                        <p>Freshly brewed specialty coffee with various flavor options.</p>
+                        <span class="price">₹299</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Espresso.jpg" alt="Espresso">
+                    <div class="menu-item-content">
+                        <h3>Espresso</h3>
+                        <p>Strong and bold espresso shot, perfect for a quick energy boost.</p>
+                        <span class="price">₹249</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Cappuccino.jpg" alt="Cappuccino">
+                    <div class="menu-item-content">
+                        <h3>Cappuccino</h3>
+                        <p>Creamy cappuccino with equal parts espresso, steamed milk, and foam.</p>
+                        <span class="price">₹349</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Latte.jpg" alt="Latte">
+                    <div class="menu-item-content">
+                        <h3>Latte</h3>
+                        <p>Smooth latte with espresso and steamed milk, lightly topped with foam.</p>
+                        <span class="price">₹379</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Mocha.jpg" alt="Mocha">
+                    <div class="menu-item-content">
+                        <h3>Mocha</h3>
+                        <p>Delicious mocha combining espresso, chocolate, and steamed milk.</p>
+                        <span class="price">₹399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Fresh Orange Juice.jpg" alt="Fresh Orange Juice">
+                    <div class="menu-item-content">
+                        <h3>Fresh Orange Juice</h3>
+                        <p>Freshly squeezed orange juice, refreshing and vitamin-rich.</p>
+                        <span class="price">₹349</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Apple Juice.jpg" alt="Apple Juice">
+                    <div class="menu-item-content">
+                        <h3>Apple Juice</h3>
+                        <p>Pure apple juice made from fresh, crisp apples.</p>
+                        <span class="price">₹329</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Pineapple Juice.jpg" alt="Pineapple Juice">
+                    <div class="menu-item-content">
+                        <h3>Pineapple Juice</h3>
+                        <p>Tropical pineapple juice, sweet and tangy.</p>
+                        <span class="price">₹369</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Mango Juice.jpg" alt="Mango Juice">
+                    <div class="menu-item-content">
+                        <h3>Mango Juice</h3>
+                        <p>Rich and creamy mango juice from ripe tropical mangoes.</p>
+                        <span class="price">₹389</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Grapefruit Juice.jpg" alt="Grapefruit Juice">
+                    <div class="menu-item-content">
+                        <h3>Grapefruit Juice</h3>
+                        <p>Tart and refreshing grapefruit juice, high in vitamin C.</p>
+                        <span class="price">₹359</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Carrot Juice.jpg" alt="Carrot Juice">
+                    <div class="menu-item-content">
+                        <h3>Carrot Juice</h3>
+                        <p>Fresh carrot juice packed with beta-carotene and nutrients.</p>
+                        <span class="price">₹339</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+                <div class="menu-item animate-grid" data-category="beverages">
+                    <img src="/assets/image/Mixed Fruit Juice.jpg" alt="Mixed Fruit Juice">
+                    <div class="menu-item-content">
+                        <h3>Mixed Fruit Juice</h3>
+                        <p>A blend of seasonal fruits for a delightful, nutritious drink.</p>
+                        <span class="price">₹399</span>
+                        <button class="add-to-cart" title="Add to Cart">+</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Eat Club. All rights reserved.</p>
+    </footer>
+
+    <script is:inline src="/script.js"></script>
+    <script>
+        // Real-time Category Filtering logic with premium animations
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state class on filter buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                menuItems.forEach(item => {
+                    // Start fading out current items
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.85)';
+
+                    setTimeout(() => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            // Short delay for standard browser rendering loop before fade-in
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }, 350);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

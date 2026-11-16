@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with Eat Club. Contact us for reservations, catering, menu inquiries, or feedback. We are here to make your experience perfect.">
+    <title>Contact Us | Eat Club - Get In Touch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Premium custom styling for the Contact page */
+        .contact-hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%);
+            padding: 8rem 2rem 6rem 2rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 4rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .contact-hero h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--dark-color) 30%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-hero p {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            align-items: start;
+        }
+
+        /* Contact details column styling */
+        .contact-details-col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .contact-detail-card {
+            background: var(--white);
+            padding: 2rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+
+        .contact-detail-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.1);
+            border-color: rgba(255, 107, 53, 0.2);
+        }
+
+        .contact-detail-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-detail-card:hover .contact-detail-icon {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .contact-detail-text h4 {
+            font-size: 1.25rem;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .contact-detail-text p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Glassmorphism Form container styling */
+        .contact-form-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-card h3 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1.1rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--dark-color);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            background: var(--white);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.15);
+        }
+
+        .form-label {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: #888;
+            transition: var(--transition);
+            pointer-events: none;
+            font-size: 1rem;
+        }
+
+        .form-textarea + .form-label {
+            top: 1.5rem;
+            transform: none;
+        }
+
+        /* Floating label logic */
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -10px;
+            left: 0.8rem;
+            background: var(--white);
+            padding: 0 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+
+        /* Interactive FAQ Accordion */
+        .faq-section {
+            background: rgba(255, 255, 255, 0.45);
+            padding: 5rem 3rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 4rem;
+        }
+
+        .faq-section h3 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            color: var(--dark-color);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--dark-color);
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.02);
+        }
+
+        .faq-icon {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 2rem;
+            color: #666;
+            line-height: 1.7;
+            font-size: 1rem;
+            border-top: 1px solid transparent;
+        }
+
+        /* Active FAQ elements */
+        .faq-item.active {
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.08);
+            border-color: rgba(255, 107, 53, 0.15);
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.04);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* arbitrary height to slide down */
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Success popup overlay */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: scale(0.85);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-overlay.show .success-card {
+            transform: scale(1);
+        }
+
+        .success-badge {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: var(--white);
+            font-size: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .success-card h4 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .success-card p {
+            color: #666;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-close-success {
+            padding: 0.9rem 2.5rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--dark-color);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-close-success:hover {
+            background: #1a202c;
+            transform: scale(1.03);
+        }
+
+        /* Active Nav Styling */
+        nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-hero {
+                padding: 3.5rem 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-hero h2 {
+                font-size: clamp(2rem, 9vw, 2.5rem);
+            }
+
+            .contact-hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-detail-card {
+                padding: 1.25rem;
+                gap: 1rem;
+            }
+
+            .contact-detail-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 1.4rem;
+            }
+
+            .contact-form-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .faq-section {
+                padding: 2rem 1rem;
+            }
+
+            .faq-section h3 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .faq-question {
+                padding: 1.2rem 1.2rem;
+                font-size: 1.05rem;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 1.2rem 1.2rem;
+            }
+        }
+
+        .contact-hero {
+            background: #EFE9DE;
+            border: 0;
+        }
+
+        .contact-hero h2 {
+            background: none;
+            color: var(--dark-color);
+            -webkit-text-fill-color: currentColor;
+        }
+
+        .contact-detail-card {
+            box-shadow: 0 4px 16px rgba(41, 53, 46, 0.07);
+            border-radius: 12px;
+        }
+
+        .contact-detail-icon {
+            background: var(--light-color);
+        }
+
+        .contact-form-card {
+            background: var(--white);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-color: rgba(41, 53, 46, 0.08);
+            box-shadow: 0 5px 20px rgba(41, 53, 46, 0.07);
+        }
+
+        .faq-section {
+            background: #EFE9DE;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="loading">
+
+    <header>
+        <h1>Welcome to Eat Club</h1>
+        <nav>
+            <ul>
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/menu/">Menu</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/contact/" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Contact Hero Section -->
+        <section class="contact-hero">
+            <h2>Get In Touch</h2>
+            <p>Have an inquiry, hosting a grand party, or looking to give direct feedback? Leave a message below or contact us via our official details.</p>
+        </section>
+
+        <!-- Two Column Layout -->
+        <div class="contact-layout">
+            <!-- Details Column -->
+            <div class="contact-details-col">
+                <div class="contact-detail-card">
+                    <div class="contact-detail-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="contact-detail-text">
+                        <h4>Our Location</h4>
+                        <p>123 Food Street, Flavor Town, FT 12345</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail-card">
+                    <div class="contact-detail-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-detail-text">
+                        <h4>Phone Inquiries</h4>
+                        <p>(555) 123-4567<br>Toll Free: 1-800-EAT-CLUB</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail-card">
+                    <div class="contact-detail-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <div class="contact-detail-text">
+                        <h4>Direct Email</h4>
+                        <p>hello@eatclub.com<br>catering@eatclub.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail-card">
+                    <div class="contact-detail-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-detail-text">
+                        <h4>Operating Hours</h4>
+                        <p>Monday - Sunday: 9:00 AM - 11:00 PM<br>(Holidays Open till 12:00 AM)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glassmorphism Form Column -->
+            <div class="contact-form-card">
+                <h3>Send Us A Message</h3>
+                <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" id="userName" class="form-input" placeholder=" " required autocomplete="name">
+                        <label for="userName" class="form-label">Full Name</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="userEmail" class="form-input" placeholder=" " required autocomplete="email">
+                        <label for="userEmail" class="form-label">Email Address</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="messageSubject" class="form-input" placeholder=" " required>
+                        <label for="messageSubject" class="form-label">Subject</label>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="userMessage" class="form-input form-textarea" placeholder=" " required></textarea>
+                        <label for="userMessage" class="form-label">Your Message...</label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Accordion FAQ Section -->
+        <section class="faq-section">
+            <h3>Frequently Asked Questions</h3>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>What are your active delivery boundaries?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        We deliver hot, premium food within a 15-mile radius of our main kitchen. If you are located slightly further, please contact our helpline to confirm potential extended logistics or group delivery options.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do you offer custom catering for wedding receptions and private parties?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! We curate customized high-end multi-cuisine catering packages. You can select bespoke salads, signature pastas, gourmet main courses, custom desserts, and organic mocktails. Contact us via email: catering@eatclub.com to coordinate directly with our culinary designers.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How does Eat Club maintain pristine safety and double-sanitization?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Every chef operates in high-efficiency particle-filtered contactless kitchens wearing medical-grade protection. Kitchen tables are sterilized hourly, packaging bags are double-sealed, and temperature trackers are tagged on every single container, setting standard-defining hygienic protocols.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I request gluten-free or completely vegan adjustments to my dishes?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, many of our items are fully customizable. When adding an item to the cart or checking out, you can note specific food allergen flags or request vegan replacements (such as organic vegan cheese, gluten-free pizza crust, or soy-based protein).
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Success Modal Overlay -->
+    <div id="successOverlay" class="success-overlay">
+        <div class="success-card">
+            <div class="success-badge">
+                <i class="fas fa-check"></i>
+            </div>
+            <h4>Message Sent!</h4>
+            <p>Thank you for connecting with Eat Club. Our culinary directors have received your details and will revert back to you within 2-4 business hours.</p>
+            <button class="btn-close-success" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Eat Club. All rights reserved.</p>
+    </footer>
+
+    <script is:inline src="/script.js"></script>
+    <script is:inline>
+        // Interactive Accordion Toggle
+        function toggleFaq(element) {
+            const currentItem = element.parentElement;
+            const isActive = currentItem.classList.contains('active');
+
+            // Close all open items first for a premium slider feel
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            if (!isActive) {
+                currentItem.classList.add('active');
+            }
+        }
+
+        // Form Submit Handler (displays a beautiful confirm modal)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Show Success Modal
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.add('show');
+            
+            // Reset Form Fields
+            document.getElementById('contactForm').reset();
+        }
+
+        // Close Modal Handler
+        function closeSuccessModal() {
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.remove('show');
+        }
+    </script>
+</body>
+</html>

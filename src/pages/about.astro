@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Eat Club, our culinary journey, pristine standards, and our passionate team of master chefs serving delicious flavors since 2015.">
+    <title>About Us | Eat Club - Premium Culinary Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Premium custom styling for the About page */
+        .about-hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(247, 147, 30, 0.15) 100%);
+            padding: 8rem 2rem 6rem 2rem;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 4rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .about-hero h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--dark-color) 30%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-hero p {
+            font-size: 1.4rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 4px solid var(--white);
+        }
+
+        .about-image-container img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-info h3 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .about-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .about-info p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Values Cards styling (Glassmorphism & Gradients) */
+        .values-section {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 5rem 3rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px var(--shadow);
+            margin-bottom: 6rem;
+            text-align: center;
+        }
+
+        .values-section h3 {
+            font-size: 2.5rem;
+            margin-bottom: 3.5rem;
+            color: var(--dark-color);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.12);
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem auto;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            transition: var(--transition);
+        }
+
+        .value-card:hover .value-icon {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            transform: rotate(360deg);
+        }
+
+        .value-card h4 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            margin-bottom: 6rem;
+        }
+
+        .timeline-section h3 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--dark-color);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 2rem;
+            background-color: var(--white);
+            position: relative;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Chefs Section */
+        .chefs-section {
+            margin-bottom: 2rem;
+        }
+
+        .chefs-section h3 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--dark-color);
+        }
+
+        .chefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .chef-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .chef-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        }
+
+        .chef-img-wrapper {
+            position: relative;
+            height: 320px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chef-img-wrapper i.fa-user-tie {
+            font-size: 8rem;
+            color: rgba(255,255,255,0.85);
+            transition: var(--transition);
+        }
+
+        .chef-card:hover .chef-img-wrapper i.fa-user-tie {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .chef-details {
+            padding: 2rem 1.5rem;
+        }
+
+        .chef-details h4 {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .chef-details span {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .chef-details p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .chef-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .chef-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-color);
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .chef-socials a:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Active Nav Styling */
+        nav a.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .about-image-container img {
+                height: 350px;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-container::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .about-hero {
+                padding: 3.5rem 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .about-hero h2 {
+                font-size: clamp(2rem, 9vw, 2.5rem);
+            }
+
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+
+            .values-section {
+                padding: 2.5rem 1rem;
+            }
+
+            .timeline-section h3,
+            .chefs-section h3,
+            .values-section h3 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-container {
+                padding-left: 55px;
+                padding-right: 0;
+            }
+
+            .timeline-content {
+                padding: 1.25rem;
+            }
+
+            .about-image-container img {
+                height: 280px;
+            }
+        }
+
+        .about-hero {
+            background: #EFE9DE;
+            border: 0;
+        }
+
+        .about-hero h2 {
+            background: none;
+            color: var(--dark-color);
+            -webkit-text-fill-color: currentColor;
+        }
+
+        .about-image-container {
+            box-shadow: 0 6px 20px rgba(41, 53, 46, 0.1);
+            border-width: 2px;
+        }
+
+        .values-section {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 4px 18px rgba(41, 53, 46, 0.07);
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="loading">
+
+    <header>
+        <h1>Welcome to Eat Club</h1>
+        <nav>
+            <ul>
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/menu/">Menu</a></li>
+                <li><a href="/about/" class="active">About</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- About Hero Section -->
+        <section class="about-hero">
+            <h2>Our Story & Passion</h2>
+            <p>Welcome to Eat Club, where we believe culinary art is a direct link to health, joy, and deep human connection. We compose recipes that celebrate global heritage and pristine quality.</p>
+        </section>
+
+        <!-- Our Story Grid -->
+        <section class="about-grid">
+            <div class="about-image-container">
+                <!-- Using a high quality related local image from our assets folder -->
+                <img src="/assets/image/Four Cheese Pizza.jpg" alt="Artisan Italian Culinary Creation by Eat Club">
+            </div>
+            <div class="about-info">
+                <h3>Crafting the Extraordinary</h3>
+                <p>Eat Club was born in 2015 out of a simple, ambitious desire: to transform ordinary dining into an extraordinary sensory journey. What started as a small, local kitchen has grown into a beloved premium culinary club, delivering exquisite flavors and unmatched variety across the city.</p>
+                <p>We source only the freshest, locally farmed ingredients and pair them with authentic global recipes. Our dedicated culinary professionals constantly innovate, bringing you a curated menu that spans across Italian masterpieces, Asian woks, fresh healthy salads, and gourmet desserts.</p>
+                <p>Every bite is structured with precise technique and prepared with standard-defining hygienic protocols. Join us, and explore a portal to the absolute world of flavor.</p>
+            </div>
+        </section>
+
+        <!-- Core Values Section (Glassmorphism design) -->
+        <section class="values-section">
+            <h3>Our Premium Standards</h3>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h4>Exquisite Taste</h4>
+                    <p>Prepared by award-winning chefs using premium herbs, spices, and ingredients for authentic flavors.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <h4>Fast & Fresh</h4>
+                    <p>Our rapid packing and delivery ecosystem ensures your meals arrive steaming hot and full of life.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h4>Pristine Hygiene</h4>
+                    <p>Strict double-sanitization and contactless kitchens operating with absolute state-of-the-art safety.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Guest Centric</h4>
+                    <p>We offer customized spice levels, customizable ingredients, and friendly, rapid-response customer service.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <h3>Our Journey of Milestones</h3>
+            <div class="timeline">
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h4>2015 - The Inception</h4>
+                        <p>Opened our very first local cloud kitchen with a compact crew of three chefs and a dream of quality delivery.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h4>2018 - Menu Revolution</h4>
+                        <p>Expanded our culinary scope by bringing in expert Italian pasta masters and traditional Asian wok chefs.</p>
+                    </div>
+                </div>
+                <div class="timeline-container left">
+                    <div class="timeline-content">
+                        <h4>2021 - Premium Digital Hub</h4>
+                        <p>Launched our first state-of-the-art digital ordering platform with interactive real-time trackers and advanced contactless checkout.</p>
+                    </div>
+                </div>
+                <div class="timeline-container right">
+                    <div class="timeline-content">
+                        <h4>2025 - Global Culinary Club</h4>
+                        <p>Now serving thousands of satisfied daily guests with active sustainability packaging and 50+ exquisite global items.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Team Section -->
+        <section class="chefs-section">
+            <h3>Our Master Culinary Pioneers</h3>
+            <div class="chefs-grid">
+                <div class="chef-card">
+                    <div class="chef-img-wrapper">
+                        <!-- Generates high quality icon illustration to fit modern dark theme -->
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="chef-details">
+                        <h4>Chef Antonio Rossi</h4>
+                        <span>Head of Italian Cuisine</span>
+                        <p>Bringing 15+ years of Roman tradition. Antonio handles our authentic thin-crust artisan pizzas and premium pastas.</p>
+                        <div class="chef-socials">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="chef-card">
+                    <div class="chef-img-wrapper" style="background: linear-gradient(135deg, #4ecdc4, #45b7d1);">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="chef-details">
+                        <h4>Chef Maya Lin</h4>
+                        <span>Master Wok Specialist</span>
+                        <p>Specializes in Cantonese and pan-Asian high-temperature wok-tossing, ensuring robust umami flavors in every single plate.</p>
+                        <div class="chef-socials">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="chef-card">
+                    <div class="chef-img-wrapper" style="background: linear-gradient(135deg, #a78bfa, #8b5cf6);">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="chef-details">
+                        <h4>Chef Kabir Mehta</h4>
+                        <span>Pastry & Dessert Artisan</span>
+                        <p>Our sweet-alchemist. Kabir designs our award-winning Classic Tiramisu, cheesecakes, and moist layered red-velvet delicacies.</p>
+                        <div class="chef-socials">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Eat Club. All rights reserved.</p>
+    </footer>
+
+    <script is:inline src="/script.js"></script>
+</body>
+</html>
